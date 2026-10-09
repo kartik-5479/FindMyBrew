@@ -9,12 +9,14 @@ def initialize_session_defaults() -> None:
         "previous_page": "Home",
         "selected_cafe_id": None,
         "search_location": "",
+        "search_query": "",
         "selected_category": "All",
         "favorites": set(),
         "default_location": "",
         "default_category": "All",
         "show_ratings": True,
         "show_prices": True,
+        "enable_ai_recommendations": True,
     }
 
     for key, value in defaults.items():

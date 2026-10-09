@@ -7,6 +7,7 @@ from services.places_service import CATEGORIES, get_popular_cafes
 def _go_to_search(location: str = "", category: str = "All") -> None:
     st.session_state["search_location"] = location.strip()
     st.session_state["selected_category"] = category if category in CATEGORIES else "All"
+    st.session_state["search_query"] = ""
     st.session_state["current_page"] = "Search"
     st.rerun()
 
@@ -42,7 +43,7 @@ def render_home() -> None:
             placeholder="Enter a city, area, or landmark...",
             label_visibility="collapsed",
             key="home_location_input",
-        )
+        ) or ""
     with button_col:
         if st.button("Find Cafes", type="primary", use_container_width=True, key="home_find_cafes"):
             _go_to_search(location, st.session_state.get("default_category", "All"))
@@ -67,25 +68,27 @@ def render_home() -> None:
             if st.button(category, key=f"home_category_{category.lower()}", use_container_width=True):
                 _go_to_search(location, category)
 
-    st.markdown(
-        """
-        <div class="search-results-heading home-popular-heading">
-            <div>
-                <span class="results-eyebrow">POPULAR NEARBY</span>
-                <h2>Popular places</h2>
+    popular_cafes = get_popular_cafes(4)
+    if popular_cafes:
+        st.markdown(
+            """
+            <div class="search-results-heading home-popular-heading">
+                <div>
+                    <span class="results-eyebrow">DEVELOPMENT SAMPLE</span>
+                    <h2>Popular places</h2>
+                </div>
+                <span class="results-count">Sample listings</span>
             </div>
-            <span class="results-count">Top picks</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+            """,
+            unsafe_allow_html=True,
+        )
+        card_columns = st.columns(2, gap="medium")
+        for index, cafe in enumerate(popular_cafes):
+            with card_columns[index % 2]:
+                render_cafe_card(
+                    cafe,
+                    key_prefix="home",
+                    show_ratings=st.session_state.get("show_ratings", True),
+                    show_prices=st.session_state.get("show_prices", True),
+                )
 
-    card_columns = st.columns(2, gap="medium")
-    for index, cafe in enumerate(get_popular_cafes(4)):
-        with card_columns[index % 2]:
-            render_cafe_card(
-                cafe,
-                key_prefix="home",
-                show_ratings=st.session_state.get("show_ratings", True),
-                show_prices=st.session_state.get("show_prices", True),
-            )

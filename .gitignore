@@ -9,6 +9,8 @@ __pycache__/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
 # Streamlit
 .streamlit/secrets.toml

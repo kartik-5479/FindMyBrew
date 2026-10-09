@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="Illustration of a coffee cup">
+  <rect width="1200" height="560" fill="#f3e3d2"/>
+  <path d="M0 390c185-35 362-25 548 2s405 40 652-14v182H0z" fill="#ddc1a4"/>
+  <circle cx="180" cy="120" r="74" fill="#f8efe5" opacity=".75"/>
+  <path d="M536 160c-39-43 31-69-1-110m94 110c-40-47 31-77-1-116m97 116c-39-42 28-66-1-101" fill="none" stroke="#b98762" stroke-linecap="round" stroke-width="15" opacity=".75"/>
+  <ellipse cx="682" cy="406" rx="245" ry="44" fill="#b98a68"/>
+  <path d="M497 236h359l-32 187c-8 45-46 77-91 77H620c-45 0-83-32-91-77z" fill="#fffaf3"/>
+  <path d="M852 278h57c54 0 83 37 77 83-5 38-36 62-82 62h-49" fill="none" stroke="#fffaf3" stroke-width="39"/>
+  <path d="M514 276h327" stroke="#d9b99b" stroke-width="11"/>
+  <ellipse cx="676" cy="248" rx="180" ry="38" fill="#8b5135"/>
+  <ellipse cx="676" cy="242" rx="150" ry="23" fill="#bb7950"/>
+  <path d="M644 244c10-24 54-24 65 0-14 20-50 21-65 0z" fill="#f1d2a6" opacity=".9"/>
+  <path d="M0 504h1200" stroke="#cda988" stroke-width="6" opacity=".6"/>
+</svg>

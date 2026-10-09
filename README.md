@@ -1,71 +1,63 @@
-﻿# FindMyBrew
+# FindMyBrew
 
-FindMyBrew is a Streamlit cafe discovery app for finding nearby coffee shops, cafes, restaurants, and lounges. It uses a local mock Places dataset, so the app runs without API keys while keeping the service layer ready for a future real Places API integration.
+FindMyBrew is a Streamlit discovery app for real cafes, coffee shops, restaurants, and lounges. Search by city, town, neighborhood, area, landmark, or natural-language intent, then save places and inspect verified details.
 
 ## Features
 
-- Cream/orange cafe-themed Streamlit UI
-- Session-state page routing for Home, Search, Favorites, Settings, and Cafe Details
-- Location search with category filters
-- Dynamic result counts and empty states
-- Cafe cards with details and favorite/unfavorite actions
-- Cafe detail pages with address, hours, amenities, reviews, and map preview data
-- Session-backed favorites using stable cafe IDs
-- Settings for default location, default category, ratings visibility, and prices visibility
+- Home, Search, Favorites, Settings, and Cafe Details pages
+- Search by city, small town, neighborhood, sector, local area, or landmark
+- Natural-language prompts such as `quiet cafe for studying` and `romantic cafe with desserts`
+- Category filters for Coffee, Cafe, Restaurant, and Lounge
+- Optional Google Places API (New) integration for structured ratings, hours, contact details, reviews, and Place Photos
+- Gemini AI recommendations and vibe summaries that use only verified place information supplied by providers
+- Friendly fallback states for missing keys, no results, provider errors, network failures, and missing images
+- Session-backed favorites and preferences
 
-## Tech Stack
+## Discovery Providers
 
-- Python
-- Streamlit
-- HTML/CSS through Streamlit markdown
-- Local mock data service
-- Session-state persistence
+- Google Places API (New) is preferred when `GOOGLE_MAPS_API_KEY` is configured.
+- Gemini Grounding with Google Maps uses `GEMINI_API_KEY` to return real Maps-grounded place references when structured Places search is unavailable.
+- Missing fields stay missing. FindMyBrew does not invent ratings, prices, addresses, amenities, reviews, hours, or cafe-specific photos.
+- When Gemini is unavailable, verified place results continue to display and deterministic local matching is used for recommendation order.
+- AI-generated ambience is clearly labeled as an inference.
 
-## Project Structure
+## Setup
 
-```text
-FindMyBrew/
-  app.py
-  components/
-    cafe_card.py
-    filter_panel.py
-    footer.py
-    map_view.py
-    navbar.py
-    review_card.py
-  database/
-    database.py
-    models.py
-  pages/
-    cafe_details.py
-    favorites.py
-    home.py
-    search.py
-    settings.py
-  services/
-    places_service.py
-  styles/
-    main.css
-  requirements.txt
-  README.md
-```
-
-## Installation
-
-```bash
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+Copy-Item .env.example .env
 ```
 
-## Running
+Add your keys to `.env`:
 
-```bash
+```env
+GEMINI_API_KEY=your_key_here
+GOOGLE_MAPS_API_KEY=your_key_here
+FINDBREW_USE_MOCK_DATA=false
+```
+
+`GOOGLE_MAPS_API_KEY` is optional, but it enables richer structured place data and provider photos. Enable Places API (New) for that Google Cloud project and restrict API keys to the APIs the app needs. Keep `.env` out of version control.
+
+## Run
+
+```powershell
 streamlit run app.py
 ```
 
-Then open the local URL shown by Streamlit, usually `http://localhost:8501`.
+Open the local URL printed by Streamlit, usually `http://localhost:8501`.
 
-## Live Demo
+## Development Sample Data
 
-Live Streamlit demo: _Add deployed Streamlit URL here._
+Bundled sample records are not used for production searches. To preview the UI offline, opt in explicitly in `.env`:
+
+```env
+FINDBREW_USE_MOCK_DATA=true
+```
+
+These development-only records use a neutral fallback illustration unless a verified provider photo is available. Set the value to `false` for normal use.
+
+## Privacy and Persistence
+
+Searches are sent to the configured Google provider. Favorites and preferences are stored in the current Streamlit session and are not persisted to an account or database.
