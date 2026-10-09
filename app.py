@@ -15,7 +15,6 @@ st.set_page_config(
     page_title="FindMyBrew",
     page_icon="coffee",
     layout="wide",
-    initial_sidebar_state="collapsed",
 )
 
 BASE_DIR = Path(__file__).resolve().parent

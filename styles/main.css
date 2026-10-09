@@ -43,6 +43,15 @@ body,
     padding-bottom: 36px;
 }
 
+[data-testid="stSidebar"],
+[data-testid="collapsedControl"] {
+    display: none !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    margin-left: 0 !important;
+}
+
 h1,
 h2,
 h3,
